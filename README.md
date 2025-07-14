@@ -48,3 +48,24 @@ Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readt
 ## Deployment
 
 The following details how to deploy this application.
+
+## Project Setup Steps
+
+To run the project locally, follow these steps:
+
+1. **Create a virtual environment**
+
+    python3 -m venv venv
+    source venv/bin/activate  # For Linux or Mac
+
+2. **Install dependencies**
+
+    pip install -r requirements/local.txt
+
+3. **Run migrations to create the database**
+
+    python manage.py migrate
+
+4. **Start the development server**
+
+    python manage.py runserver
