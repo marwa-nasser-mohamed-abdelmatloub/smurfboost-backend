@@ -2,6 +2,7 @@ from .base import *  # noqa: F403
 from .base import INSTALLED_APPS
 from .base import MIDDLEWARE
 from .base import env
+from rest_framework.permissions import AllowAny
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -28,10 +29,12 @@ CACHES = {
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend",
-)
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'wwwrehabkamal601@gmail.com'
+EMAIL_HOST_PASSWORD = 'tnehsxylfclspnbl'
 # WhiteNoise
 # ------------------------------------------------------------------------------
 # http://whitenoise.evans.io/en/latest/django.html#using-whitenoise-in-development
@@ -71,8 +74,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "smurfboost_db",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
+        "USER": "ahmed",
+        "PASSWORD": "1234",
         "HOST": "localhost",
         "PORT": "5432",
     }

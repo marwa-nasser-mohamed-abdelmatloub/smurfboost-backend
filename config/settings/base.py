@@ -50,7 +50,8 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres://localhost/smurfboost_backend",
+        # default="postgres://localhost/smurfboost_backend",
+        default="ahmed:1234//localhost/smurfboost_backend",
     ),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
