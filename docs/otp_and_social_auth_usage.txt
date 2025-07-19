@@ -1,0 +1,94 @@
+OTP and Social Login/Register API Usage Guide
+============================================
+
+This guide explains how to use the new authentication endpoints for login and registration via OTP (email) and social providers (Google, Discord).
+
+---
+
+1. OTP (Email) Login/Register
+----------------------------
+
+### Step 1: Send OTP to Email
+- **Endpoint:** POST /api/auth/send-otp/
+- **Body:**
+  {
+    "email": "user@example.com"
+  }
+- **Response:**
+  { "detail": "OTP sent." }
+
+### Step 2: Verify OTP
+- **Endpoint:** POST /api/auth/verify-otp/
+- **Body:**
+  {
+    "email": "user@example.com",
+    "code": "123456"
+  }
+- **Response (Success):**
+  {
+    "refresh": "<refresh_token>",
+    "access": "<access_token>"
+  }
+- **Notes:**
+  - If the email is new, a user is registered automatically.
+  - If the email exists, the user is logged in.
+  - OTP is valid for 5 minutes and can be used only once.
+  - If OTP is invalid or expired, you get: { "detail": "Invalid or expired OTP." }
+
+---
+
+2. Google Social Login/Register
+------------------------------
+
+### Step 1: Obtain Google OAuth Token
+- Use Google OAuth on the frontend to get an ID token.
+
+### Step 2: Send Token to Backend
+- **Endpoint:** POST /api/auth/social/google/
+- **Body:**
+  {
+    "token": "<google_id_token>"
+  }
+- **Response (Success):**
+  {
+    "refresh": "<refresh_token>",
+    "access": "<access_token>"
+  }
+- **Notes:**
+  - If the email is new, a user is registered automatically.
+  - If the email exists, the user is logged in.
+  - If the token is invalid, you get: { "detail": "Invalid Google token." }
+
+---
+
+3. Discord Social Login/Register
+-------------------------------
+
+### Step 1: Obtain Discord OAuth Token
+- Use Discord OAuth on the frontend to get an access token.
+
+### Step 2: Send Token to Backend
+- **Endpoint:** POST /api/auth/social/discord/
+- **Body:**
+  {
+    "token": "<discord_access_token>"
+  }
+- **Response (Success):**
+  {
+    "refresh": "<refresh_token>",
+    "access": "<access_token>"
+  }
+- **Notes:**
+  - If the email is new, a user is registered automatically.
+  - If the email exists, the user is logged in.
+  - If the token is invalid, you get: { "detail": "Invalid Discord token." }
+
+---
+
+4. General Notes
+----------------
+- All endpoints return JWT tokens (refresh and access) on success.
+- Use the access token for authenticated API requests.
+- Use the refresh token to obtain new access tokens when expired.
+- All endpoints expect JSON bodies.
+- For errors, check the "detail" field in the response. 
